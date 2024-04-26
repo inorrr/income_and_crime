@@ -56,13 +56,13 @@ Reference:
 fn1 <- "https://raw.githubusercontent.com/inorrr/JSC370_project/main/census.csv"
 fn2 <- "https://raw.githubusercontent.com/inorrr/JSC370_project/main/crime.csv"
 
-if (!file.exists("census.csv"))
-  download.file(fn1, destfile = "census.csv")
-census_df <- data.table::fread("census.csv")
+if (!file.exists("data/census.csv"))
+  download.file(fn1, destfile = "data/census.csv")
+census_df <- data.table::fread("data/census.csv")
 
-if (!file.exists("crime.csv"))
-  download.file(fn2, destfile = "crime.csv")
-crime_df <- data.table::fread("crime.csv")
+if (!file.exists("data/crime.csv"))
+  download.file(fn2, destfile = "data/crime.csv")
+crime_df <- data.table::fread("data/crime.csv")
 ```
 
 ### Data Wrangling and Cleaning

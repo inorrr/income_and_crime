@@ -358,13 +358,13 @@ class="uri">https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3510017701</a>
 <pre class="r"><code>fn1 &lt;- &quot;https://raw.githubusercontent.com/inorrr/JSC370_project/main/census.csv&quot;
 fn2 &lt;- &quot;https://raw.githubusercontent.com/inorrr/JSC370_project/main/crime.csv&quot;
 
-if (!file.exists(&quot;census.csv&quot;))
-  download.file(fn1, destfile = &quot;census.csv&quot;)
-census_df &lt;- data.table::fread(&quot;census.csv&quot;)
+if (!file.exists(&quot;data/census.csv&quot;))
+  download.file(fn1, destfile = &quot;data/census.csv&quot;)
+census_df &lt;- data.table::fread(&quot;data/census.csv&quot;)
 
-if (!file.exists(&quot;crime.csv&quot;))
-  download.file(fn2, destfile = &quot;crime.csv&quot;)
-crime_df &lt;- data.table::fread(&quot;crime.csv&quot;)</code></pre>
+if (!file.exists(&quot;data/crime.csv&quot;))
+  download.file(fn2, destfile = &quot;data/crime.csv&quot;)
+crime_df &lt;- data.table::fread(&quot;data/crime.csv&quot;)</code></pre>
 <div id="data-wrangling-and-cleaning" class="section level3">
 <h3>Data Wrangling and Cleaning</h3>
 <ol style="list-style-type: decimal">

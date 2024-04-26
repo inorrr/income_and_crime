@@ -1,4 +1,4 @@
-name: "my-website"
+name: "income_and_crime"
 output_dir: "."
 navbar:
   title: "JSC370 Final Project"
