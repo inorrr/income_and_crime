@@ -1,9 +1,7 @@
 ---
 title: "Access the Full Report"
 output: 
-    html_document:
-        toc: TRUE
-        toc_float: TRUE
+    html_document
 ---
 
 Please download the full report at here: https://github.com/inorrr/JSC370_project
