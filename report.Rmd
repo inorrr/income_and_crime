@@ -1,0 +1,14 @@
+---
+title: "Access the Full Report"
+output: 
+    html_document:
+        toc: TRUE
+        toc_float: TRUE
+---
+
+Please download the full report at here: https://github.com/inorrr/JSC370_project
+
+Or by clicking the button below:
+
+
+[Download PDF](CSC494H1_Report_YinuoZhao.pdf){.btn .btn-primary}

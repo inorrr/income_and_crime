@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Author: Yinuo Zhao" />
+
+
+<title>How does crime rate relate to income in Canada?</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">JSC370 Final Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Description</a>
+</li>
+<li>
+  <a href="visual.html">Visualizations</a>
+</li>
+<li>
+  <a href="report.html">Full Report</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/inorrr/income_and_crime/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/yinuozhao/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://jsc370.github.io/JSC370-2024/">JSC370 Home</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">How does crime rate relate to income in
+Canada?</h1>
+<h4 class="author">Author: Yinuo Zhao</h4>
+
+</div>
+
+
+<div id="description" class="section level1">
+<h1>Description</h1>
+<p>The question of Research interest is: “How does crime rate relate to
+income in Canada?”</p>
+<p>In order to answer this question, data on both crime and
+socioeconomic status are needed. However, I found no existing data set
+that contains all desired information, therefore this needs to be
+achieved through merging more than one data sets. Aftering choosing
+carefully, the following two separate data sets are obtained:</p>
+<ol style="list-style-type: decimal">
+<li><p>“Income of individuals by age group, sex and income source,
+Canada, provinces and selected census metropolitan areas”. Released
+2023-05-02. This data set is annually updated and maintained by
+Statistics Canada (Table 11-10-0239-01). Data is collected through the
+Survey of Labor and Income Dynamics, Survey of Consumer Finances, and
+Canadian Income Survey.</p></li>
+<li><p>“Incident-based crime statistics, by detailed violations, Canada,
+provinces, territories, Census Metropolitan Areas and Canadian Forces
+Military Police”. Released 2023-07-27. This data set is also annually
+updated and maintained by Statistics Canada (Table 35-10-0177-01,
+formerly CANSIM 252-0051). Data is collected through the Uniform Crime
+Reporting Survey.</p></li>
+</ol>
+<p>Understanding the relationship between crime rates and income in
+Canada is crucial for policymakers, law enforcement agencies, and social
+welfare programs. Exploring this correlation can shed light on the
+socioeconomic factors driving criminal behavior and help formulate
+targeted interventions to alleviate poverty and reduce crime.
+Additionally, elucidating this connection can inform broader discussions
+on social inequality, justice, and community well-being in Canadian
+society.</p>
+<p>Both data sets are downloaded directly from Statistics Canada, which
+is usually considered to be an reliable source. Because they share the
+same source, the data sets follows similar structure and all contains
+the two columns GEO and REF_DATE where the former one refers to the
+geographical region and the second one refers to the year of data. Thus,
+it’s possible to combine the two data sets to obtain all information
+needed.</p>
+<p>However, it is worth mentioning that both data sets are huge and
+contains unrelated information. Therefore, cleaning and wrangling are
+needed for more convenient analysis and more efficient computing &amp;
+uploading, as the original data sets are oversize thus cannot be pushed
+to github repository.</p>
+</div>
+<div id="summary-of-findings" class="section level1">
+<h1>Summary of Findings</h1>
+<ol style="list-style-type: decimal">
+<li><strong>Looking at Crime Data:</strong></li>
+</ol>
+<ul>
+<li>Saskatchewan consistently exhibits a significantly higher total
+crime rate compared to other provinces throughout the period of 1998 to
+2021.</li>
+<li>Quebec and Ontario consistently demonstrate the lowest total crime
+rates.</li>
+<li>Across all provinces, there is a discernible decreasing trend in
+total crime rates over the years.</li>
+<li>Many provinces experiencing peak total crime rates in
+2003-2004.</li>
+<li>There is a decreasing trend in the rates of break and enter,
+robbery, and prostitution in all provinces.</li>
+<li>British Columbia stands out with a significantly high rate of
+prostitution in 2004, doubling the number reported in Saskatchewan,
+which held the second-highest rate that year.</li>
+<li>Across all provinces, there is a discernible decreasing trend in the
+average crime rate of all types, from year to year.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Looking at Income Data:</strong></li>
+</ol>
+<ul>
+<li>On the whole, the average total income for all provinces exhibits a
+steady upward trend.</li>
+<li>Since 2003, Alberta has surpassed Ontario to become the province
+with the highest average total income.</li>
+<li>There is a slight decrease in average total income across all
+provinces around 2019, likely attributed to the impact of the COVID-19
+pandemic.</li>
+<li>Employment income, investment income, and market income of provinces
+are all increasing.</li>
+<li>Employment and market income show a more steady growth pattern,
+while investment income fluctuates dramatically from year to year.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Examining Crime and Income Together:</strong></li>
+</ol>
+<ul>
+<li>Average total income and total crime rate are negatively correlated
+across all provinces.</li>
+<li>Quebec exhibits the strongest correlation between average total
+income and total crime rate as the correlation is close to -1.</li>
+<li>In the relationship between robbery crime rate and employment
+income, all provinces display a negative trend except for Newfoundland
+and Labrador. Manitoba demonstrates a weak relationship, as evidenced by
+the considerable dispersion of points around the line.</li>
+<li>Property crime rate decreases with increasing market income in all
+provinces.</li>
+<li>Employment income and prostitution crime rate have varying degrees
+of association across provinces, with many showing a weak relationship.
+Notably, Ontario exhibits a positive relationship between employment
+income and prostitution crime rate while it is negative for other
+provinces.</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Zoom on Province - Ontario:</strong></li>
+</ol>
+<ul>
+<li>Major crimes in Ontario are property crime and weapon
+violations.</li>
+<li>Strongest correlation is observed between self-employment income and
+production under the Cannabis Act. However, it’s important to note that
+this relationship may not be entirely reliable due to the limited data
+available.</li>
+<li>The second strongest correlation, with a coefficient of 0.98, is
+observed between total income and incidents of possession of other
+Controlled Drugs and Substances Act drugs. As income levels increase,
+the number of incidents of possession of these drugs also tends to
+rise.</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Group by Income Level</strong></li>
+</ol>
+<ul>
+<li>Created 4 levels for average total income using the quarantines,
+from negative infinity to the first quantile is “Low”, from first
+quantile to mean is “Med_Low”, from mean to 3rd quantile is “Med_High”,
+from 3rd quantile above is “High”.</li>
+<li>Total crime rate does not exhibit a clear trend of decreasing with
+higher levels of total income, which contradicts previous observations
+when examining the relationship between total crime rate and average
+total income by province. while a relationship exists, it may be
+influenced by other factors related to the demographics of each
+province. Consequently, when considering all observations collectively,
+the relationship becomes less apparent.</li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li><strong>Fitting Statistical Models</strong></li>
+</ol>
+<ul>
+<li>The linear regression model analyzed the relationship between Crime
+Rate per 100,000 population and Average income (excluding zeros) across
+different provinces represented by the categorical variable GEO.</li>
+<li>Findings suggest a negative correlation between average income and
+total crime rate, implying that higher average income tends to coincide
+with lower crime rates.</li>
+<li>Provinces exhibit varying baseline rates, with British Columbia
+notably showing a significantly higher rate compared to the reference
+province.</li>
+<li>Interaction terms between income and provinces reveal differing
+effects across regions, such as a more pronounced negative association
+between income and crime rate in British Columbia.</li>
+<li>The model demonstrates a robust fit with an adjusted R-squared value
+of 0.9328, indicating significant influences of both income and province
+on the crime rate per 100,000 population, with nuanced variations across
+different regions.</li>
+</ul>
+</div>
+<div id="acknowledgements" class="section level1">
+<h1>Acknowledgements</h1>
+<p>This project is created by Yinuo Zhao as part of the course JSC370H1
+offered by the University of Toronto in Winter 2024, instructed under
+Jun Ni (Jenny) Du and professor Meredith Franklin.</p>
+</div>
+<div id="about-jsc370h1" class="section level1">
+<h1>About JSC370H1</h1>
+<p>JSC370H1: Data Science II is a course restricted to students in the
+Data Science Specialist program. Students will learn to identify and
+answer questions through the application of exploratory data analysis,
+data visualization, statistical methods or machine learning algorithms
+to complex data. Software development for data science and reproducible
+workflows. Communication of statistical information at various technical
+levels, ethical practice of data analysis and software development, and
+teamwork skills. Topics will be explored through case studies and
+collaboration with researchers in other fields.</p>
+</div>
+<div id="reference" class="section level1">
+<h1>Reference:</h1>
+<p>The census data set: <a
+href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110023901"
+class="uri">https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110023901</a></p>
+<p>The crime data set: <a
+href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3510017701"
+class="uri">https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3510017701</a></p>
+<p><a href="https://artsci.calendar.utoronto.ca/course/jsc370h1"
+class="uri">https://artsci.calendar.utoronto.ca/course/jsc370h1</a></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
