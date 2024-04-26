@@ -1,5 +1,5 @@
 ---
-title: "How does crime rate relate to income in Canada?"
+title: "Investigating the Socioeconomic Dynamics of Crime: Exploring the Relationship Between Income and Crime Rates in Canada"
 author: "Author: Yinuo Zhao"
 output: 
   html_document:

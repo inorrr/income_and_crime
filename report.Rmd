@@ -9,4 +9,7 @@ Please download the full report at here: https://github.com/inorrr/JSC370_projec
 Or by clicking the button below:
 
 
-[Download PDF](CSC494H1_Report_YinuoZhao.pdf){.btn .btn-primary}
+[Download PDF Report](CSC494H1_Report_YinuoZhao.pdf){.btn .btn-primary}
+
+
+The video presentation is availiable at: 

@@ -1,14 +1,13 @@
 ---
-title: "JSC370 Final Project"
-author: "Yinuo Zhao"
+title: "Interactive Visualizations"
 output: 
     html_document:
         toc: TRUE
         toc_float: TRUE
 ---
 
-This is my JSC370 Final Project website.
 
+Below are some of the visualizations created with this project.
 
 ```{r message=FALSE, echo=FALSE, include=FALSE, warning=FALSE}
 
@@ -17,72 +16,342 @@ library(plotly)
 library(widgetframe)
 library(tidytext)
 
+library(data.table)
+library(kableExtra)
+library(dplyr)
+library(splines)
+library(mgcv)
+library(gridExtra)
+library(grid)
+library(cowplot)
+library(broom)
+```
+
+
+```{r, echo=FALSE}
+fn1 <- "https://raw.githubusercontent.com/inorrr/JSC370_project/main/census.csv"
+fn2 <- "https://raw.githubusercontent.com/inorrr/JSC370_project/main/crime.csv"
+
+if (!file.exists("data/census.csv"))
+  download.file(fn1, destfile = "data/census.csv")
+census_df <- data.table::fread("data/census.csv")
+
+if (!file.exists("data/crime.csv"))
+  download.file(fn2, destfile = "data/crime.csv")
+crime_df <- data.table::fread("data/crime.csv")
+
+crime_df <- pivot_wider(crime_df, id_cols = c(REF_DATE, GEO, Violations), 
+                        names_from = Statistics, values_from = VALUE)
+crime_df <- na.omit(crime_df)
+
+census_df <- pivot_wider(census_df, id_cols = c(REF_DATE, GEO, `Income source`), 
+                         names_from = Statistics, values_from = VALUE)
+census_df <- na.omit(census_df)
 ```
 
 ```{r, echo=FALSE}
-### load Starbucks and state-level data ###
-sb_locs <- read_csv("https://raw.githubusercontent.com/JSC370/JSC370-2024/main/labs/lab11/starbucks-locations.csv", show_col_types = FALSE)
+unique_x_values <- unique(crime_df$REF_DATE)
 
-sb_nutr <- read_csv("https://raw.githubusercontent.com/JSC370/JSC370-2024/main/labs/lab11/starbucks-menu-nutrition.csv", show_col_types = FALSE)
-
-usa_pop <- read_csv("https://raw.githubusercontent.com/JSC370/JSC370-2024/main/labs/lab11/us_state_pop.csv", show_col_types = FALSE)
-
-usa_states<-read_csv("https://raw.githubusercontent.com/JSC370/JSC370-2024/main/labs/lab11/states.csv", show_col_types = FALSE)
-
-
-### Merge data ###
-sb_usa <- sb_locs |> filter(Country=="US")
-
-sb_locs_state <- sb_usa |>
-  group_by(`State/Province`) |>
-  rename(state=`State/Province`) |>
-  summarize(n_stores=n())
-
-# need state abbreviations
-usa_pop_abbr <- 
-  full_join(usa_pop, usa_states, 
-            by = join_by(state == State)
-  ) 
-
-sb_locs_state <- full_join(sb_locs_state, usa_pop_abbr,
-                           by = join_by (state == Abbreviation))
+filtered_data = crime_df %>% filter(Violations=="Total, all violations")
+plot1 <- ggplot(filtered_data, aes(x = REF_DATE, y = `Rate per 100,000 population`, color = GEO)) +
+  geom_line() +
+  labs(x = "Year", y = "Rate per 100,000 population", title = "Rates of Total Crime by Province") +
+  scale_x_continuous(breaks = unique_x_values) + 
+  scale_color_discrete(name = "Provinces") + 
+  theme(legend.position = "bottom") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(plot.title = element_text(face = "bold")) + 
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + 
+  theme(axis.text = element_text(size = 7)) + 
+  theme(legend.title = element_text(face = "bold"))
 
 
-### Get topwords from menu items ###
+filtered_data = crime_df %>% filter(Violations=="Total breaking and entering")
+plot2 <- ggplot(filtered_data, aes(x = REF_DATE, y = `Rate per 100,000 population`, color = GEO)) +
+  geom_line() +
+  labs(x = "Year", y = "Rate per 100,000 population", title = "Rates of Break and Enter by Province") +
+  scale_x_continuous(breaks = unique_x_values) + 
+  scale_color_discrete(name = "Provinces") + 
+  theme(legend.position = "bottom") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(plot.title = element_text(face = "bold")) + 
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + 
+  theme(axis.text = element_text(size = 7)) + 
+  theme(legend.title = element_text(face = "bold"))
 
-topwords <- sb_nutr |>
-  unnest_tokens(word, Item, token="words") |>
-  group_by(word) |>
-  summarise(word_frequency = n()) |>
-  arrange(across(word_frequency, desc)) |>
-  head(10)
+filtered_data = crime_df %>% filter(Violations=="Total robbery")
+plot3 <- ggplot(filtered_data, aes(x = REF_DATE, y = `Rate per 100,000 population`, color = GEO)) +
+  geom_line() +
+  labs(x = "Year", y = "Rate per 100,000 population", title = "Rates of Robbery by Province") +
+  scale_x_continuous(breaks = unique_x_values) + 
+  scale_color_discrete(name = "Provinces") + 
+  theme(legend.position = "bottom") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(plot.title = element_text(face = "bold")) + 
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + 
+  theme(axis.text = element_text(size = 7)) + 
+  theme(legend.title = element_text(face = "bold"))
+
+filtered_data = crime_df %>% filter(Violations=="Total prostitution")
+plot4 <- ggplot(filtered_data, aes(x = REF_DATE, y = `Rate per 100,000 population`, color = GEO)) +
+  geom_line() +
+  labs(x = "Year", y = "Rate per 100,000 population", title = "Rates of Prostitution by Province") +
+  scale_x_continuous(breaks = unique_x_values) + 
+  scale_color_discrete(name = "Provinces") + 
+  theme(legend.position = "bottom") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  theme(plot.title = element_text(face = "bold")) + 
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + 
+  theme(axis.text = element_text(size = 7)) + 
+  theme(legend.title = element_text(face = "bold"))
+```
+
+
+# Crime Rates By Province {.tabset}
+
+## Total Crime
+
+```{r plot_1, echo=FALSE}
+ggplotly(plot1, width = 800)
+```
+
+## Break and Enter
+
+```{r plot_2, echo=FALSE}
+ggplotly(plot2, width = 800)
+```
+
+## Robbery
+
+```{r plot_3, echo=FALSE}
+ggplotly(plot3, width = 800)
+```
+
+## Prostitution
+
+```{r plot_4, echo=FALSE}
+ggplotly(plot4, width = 800)
+```
+
+# Average Income by Province {.tabset}
+
+```{r, echo = FALSE, fig.align='center', fig.width=10, fig.height=5}
+filtered_data = census_df %>% filter(`Income source`=="Total income")
+unique_x_values <- unique(census_df$REF_DATE)
+plot1 <- ggplot(filtered_data, aes(x = REF_DATE, y = `Average income (excluding zeros)`, color = GEO)) +
+  geom_line() +
+  labs(x = "Year", y = "Total income", title = "Average Total Income (excluding zeros) by Province") +
+  scale_x_continuous(breaks = unique_x_values) +
+  scale_color_discrete(name = "Provinces") +
+  theme(legend.position = "right") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + 
+  theme(axis.text = element_text(size = 7)) +
+  theme(legend.title = element_text(face = "bold"))
+
+
+filtered_data = census_df %>% filter(`Income source`=="Employment income")
+plot2 <- ggplot(filtered_data, aes(x = REF_DATE, y = `Average income (excluding zeros)`, color = GEO)) +
+  geom_line() +
+  labs(x = "Year", y = "Average Income (excluding zeros)", title = "Average Employment Income by Province") +
+  scale_x_continuous(breaks = unique_x_values) +
+  scale_color_discrete(name = "Provinces") +
+  theme(legend.position = "right") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + 
+  theme(axis.text = element_text(size = 7)) +
+  theme(legend.title = element_text(face = "bold"))
+
+filtered_data = census_df %>% filter(`Income source`=="Investment income")
+plot3 <- ggplot(filtered_data, aes(x = REF_DATE, y = `Average income (excluding zeros)`, color = GEO)) +
+  geom_line() +
+  labs(x = "Year", y = "Average Income (excluding zeros)", title = "Average Investment Income by Province") +
+  scale_x_continuous(breaks = unique_x_values) +
+  scale_color_discrete(name = "Provinces") +
+  theme(legend.position = "right") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + 
+  theme(axis.text = element_text(size = 7)) +
+  theme(legend.title = element_text(face = "bold"))
+
+filtered_data = census_df %>% filter(`Income source`=="Market income")
+plot4 <- ggplot(filtered_data, aes(x = REF_DATE, y = `Average income (excluding zeros)`, color = GEO)) +
+  geom_line() +
+  labs(x = "Year", y = "Average Income (excluding zeros)", title = "Average Market Income by Province") +
+  scale_x_continuous(breaks = unique_x_values) +
+  scale_color_discrete(name = "Provinces") +
+  theme(legend.position = "right") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + 
+  theme(axis.text = element_text(size = 7)) +
+  theme(legend.title = element_text(face = "bold"))
+```
+
+
+## Total Income
+```{r echo=FALSE}
+ggplotly(plot3, width = 800)
+```
+
+## Employment Income
+```{r echo=FALSE}
+ggplotly(plot1, width = 800)
+```
+
+## Investment Income
+```{r echo=FALSE}
+ggplotly(plot2, width = 800)
+```
+
+## Market Income
+```{r echo=FALSE}
+ggplotly(plot3, width = 800)
+```
+
+# Trend in Average Total Income
+
+```{r, echo=FALSE, fig.align='center', fig.width=10, fig.height=5}
+filtered_data = census_df %>% filter(`Income source`=="Total income")
+plot<-ggplot(filtered_data, mapping = aes(x = as.factor(REF_DATE), y = `Average income (excluding zeros)`)) +
+  geom_boxplot() +
+  geom_jitter(alpha = 0.8, color = "pink") + 
+  labs(x = "Year", y = "Total income", title = "Average Total Income (excluding zeros) by Province") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + 
+  theme(axis.text = element_text(size = 7))
+
+ggplotly(plot, width = 800)
 
 ```
 
 
+# Crime Rate vs Income{.tabset}
 
-# Part 1
+```{r, echo = FALSE, warning = FALSE, fig.align='center', fig.width=10, fig.height=5}
+filtered_census <- census_df %>% filter(`Income source` == "Total income") 
+filtered_crime <- crime_df %>%filter(Violations=="Total, all violations")
 
-## Showcasing plots {.tabset}
+joint_df <- inner_join(filtered_crime, filtered_census, by = c("REF_DATE", "GEO"))
 
-### Figure 1
 
-```{r plot_2, echo=FALSE, source="process_starbucks_data.R"}
-p1 <- ggplot(data = sb_locs_state, aes(x=population, y=n_stores, color = state)) + 
-  geom_point(alpha = 0.8) +
-  labs(title = "Number of Starbucks and Population of States", x="Population", y = "Number of Starbucks")
+plot1 <- ggplot(data = joint_df, aes(x = `Average income (excluding zeros)`, y = `Rate per 100,000 population`, color = GEO, size = 3)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE, size = 1.0) + 
+  guides(size = FALSE) + # remove "size" from legend
+  labs(x = "Average Total Income (excluding zeros)", 
+       y = "Total Crime Rate per 100,000 population`", 
+       title = "Average Total Income and Total Crime Rate") +
+  scale_color_discrete(name = "Provinces") +
+  theme(axis.text = element_text(size = 7)) +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(legend.position = "right") +
+  theme(legend.title = element_text(face = "bold")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))
 
-ggplotly(p1)
+filtered_census <- census_df %>% filter(`Income source` == "Employment income") 
+filtered_crime <- crime_df %>%filter(Violations=="Total robbery")
+
+joint_df <- inner_join(filtered_crime, filtered_census, by = c("REF_DATE", "GEO"))
+
+plot2 <- ggplot(data = joint_df, aes(x = `Average income (excluding zeros)`, y = `Rate per 100,000 population`, color = GEO, size = 3)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE, size = 1.0) + 
+  guides(size = FALSE) + # remove "size" from legend
+  labs(x = "Average Employment Income (excluding zeros)", 
+       y = "Robbery Crime Rate per 100,000 population`", 
+       title = "Avg Employment Income vs Robbery Crime Rate") +
+  scale_color_discrete(name = "Provinces") +
+  theme(axis.text = element_text(size = 7)) +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(legend.position = "right") +
+  theme(legend.title = element_text(face = "bold")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))
+
+filtered_census <- census_df %>% filter(`Income source` == "Market income") 
+filtered_crime <- crime_df %>%filter(Violations=="Total property crime violations")
+
+joint_df <- inner_join(filtered_crime, filtered_census, by = c("REF_DATE", "GEO"))
+
+plot3 <- ggplot(data = joint_df, aes(x = `Average income (excluding zeros)`, y = `Rate per 100,000 population`, color = GEO, size = 3)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE, size = 1.0) + 
+  guides(size = FALSE) + # remove "size" from legend
+  labs(x = "Average Market Income (excluding zeros)", 
+       y = "Property Crime Rate per 100,000 population`", 
+       title = "Avg Market Income vs Property Crime Rate") +
+  scale_color_discrete(name = "Provinces") +
+  theme(axis.text = element_text(size = 7)) +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(legend.position = "right") +
+  theme(legend.title = element_text(face = "bold")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))
+
+filtered_census <- census_df %>% filter(`Income source` == "Government transfers") 
+filtered_crime <- crime_df %>%filter(Violations=="Total prostitution")
+
+joint_df <- inner_join(filtered_crime, filtered_census, by = c("REF_DATE", "GEO"))
+
+plot4 <- ggplot(data = joint_df, aes(x = `Average income (excluding zeros)`, y = `Rate per 100,000 population`, color = GEO, size = 3)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE, size = 1.0) + 
+  guides(size = FALSE) + # remove "size" from legend
+  labs(x = "Average Employment Income (excluding zeros)", 
+       y = "Prostitution Crime Rate per 100,000 population`", 
+       title = "Avg Employment Income vs Prostitution Crime Rate") +
+  scale_color_discrete(name = "Provinces") +
+  theme(axis.text = element_text(size = 7)) +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(legend.position = "right") +
+  theme(legend.title = element_text(face = "bold")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"))
 ```
 
-### Figure 2
-
-```{r plot_1, echo=FALSE, source="process_starbucks_data.R"}
-p2 <- ggplot(data = sb_nutr, aes(x=Calories, fill = Category)) + 
-  geom_histogram(alpha=0.3, bins = 30, position = "identity")+ 
-  labs(title = "Caloric Distribution of Starbucks menu items by Category(drinks and food)", y = "Count")
-
-ggplotly(p2)
+## Total Income and Total Crime
+```{r echo=FALSE, }
+ggplotly(plot3, width = 800)
 ```
 
-# Part 2
+## Employment Income and Robbery
+```{r echo=FALSE}
+ggplotly(plot1, width = 800)
+```
+
+## Market Income and Property Crime
+```{r echo=FALSE}
+ggplotly(plot2, width = 800)
+```
+
+## Employment Income and Prostitution
+```{r echo=FALSE}
+ggplotly(plot3, width = 800)
+```
+
+# Income Levels
+```{r, echo = FALSE}
+filter_census <- census_df %>% filter(`Income source` == "Total income")
+# summary(filter_census$`Average income (excluding zeros)`)
+breaks <- c(-Inf, 40460, 45077, 48859, Inf)
+filter_census$income_level <- cut(filter_census$`Average income (excluding zeros)`, 
+                                  breaks = breaks, labels = c("Low", "Med-Low", "Med-High", "High"))
+
+
+filter_crime <- crime_df %>%filter(Violations=="Total, all violations")
+joint_df <- inner_join(filter_census, filter_crime, by = c("REF_DATE", "GEO"))
+
+plot<-ggplot(joint_df, aes(x = as.factor(income_level), y = `Rate per 100,000 population`)) +
+  geom_boxplot() +
+  geom_jitter(alpha = 0.8, color = "tomato") + 
+  labs(x = "Income Level", y = "Total Crime Rate", title = "Total Crime Rate by Income Level") +
+  theme(plot.title = element_text(face = "bold")) +
+  theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) +
+  theme(axis.text = element_text(size = 10))
+
+ggplotly(plot, width = 800)
+```
+
+

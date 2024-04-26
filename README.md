@@ -1,4 +1,4 @@
-# How does crime rate relate to income in Canada?
+# Investigating the Socioeconomic Dynamics of Crime: Exploring the Relationship Between Income and Crime Rates in Canada
 
 The project site is live at https://inorrr.github.io/income_and_crime/. 
 

@@ -313,6 +313,7 @@ grid.arrange(plot1, plot2, plot3, nrow = 1)
 Presented below is a table summarizing the average crime rate across all crime types (excluding `Total, all violations`) categorized by province and year. The cells are color-coded by value, with lighter shades indicating higher values and darker shades representing smaller values. Upon scrolling through the table, it becomes evident that across all provinces, there is a discernible **decreasing trend in the average crime rate**, as evidenced by the darkening shades in each column. This observation aligns with the findings and inferences drawn from the preceding plots.
 
 
+
 ```{r, echo = FALSE, fig.align='center'}
 summary_stats <- crime_df %>% filter(Violations != "Total, all violations") %>% 
                                        group_by(REF_DATE, GEO) %>% 
