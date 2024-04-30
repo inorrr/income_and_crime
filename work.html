@@ -300,7 +300,7 @@ rate relate to income in Canada?”</strong></p>
 <p>In order to answer this question, data on both crime and
 socioeconomic status are needed. However, I found no existing data set
 that contains all desired information, therefore this needs to be
-achieved through merging more than one data sets. Aftering choosing
+achieved through merging more than one data sets. After choosing
 carefully, the following two separate data sets are obtained:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>“Income of individuals by age group, sex and income
@@ -597,8 +597,9 @@ a significantly high rate of prostitution in 2004, doubling the number
 reported in Saskatchewan, which held the second-highest rate that
 year.</p>
 <p><em>Note that the 3 plots below shares the same legend with the above
-plots. Therefore the legend is omited for better display purpose. Codes
-are also not shown as they reuses the above code chunk.</em></p>
+plots. Therefore the legend is omitted for better display purpose. Codes
+are also not shown as they reuses the above code chunk. Crime rate is
+measured per 100,000 population.</em></p>
 <p><img src="work_files/figure-html/unnamed-chunk-15-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>Presented below is a table summarizing the average crime rate across
 all crime types (excluding <code>Total, all violations</code>)
@@ -1522,7 +1523,9 @@ represent the actual values for each year in each province. It’s clear
 from the boxes that the average income is <strong>increasing</strong>
 year by year. Notably, between 2010 and 2016, there are some outliers
 with very high incomes, which corresponds to Alberta when compared with
-the previous plot.</p>
+the previous plot. However, it is worth mentioning that the values for
+income is not properly adjusted for inflation, therefore the actual
+growth is not as strong as we see in the current data.</p>
 <p><img src="work_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>After examining total income, I delved into specific income sources:
 employment income, investment income, and market income, which are major
@@ -2484,10 +2487,18 @@ Correlation
 <tbody>
 <tr>
 <td style="text-align:left;">
-Alberta
+Quebec
 </td>
 <td style="text-align:right;">
--0.7023852
+-0.9447648
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nova Scotia
+</td>
+<td style="text-align:right;">
+-0.9236636
 </td>
 </tr>
 <tr>
@@ -2500,10 +2511,42 @@ British Columbia
 </tr>
 <tr>
 <td style="text-align:left;">
+Prince Edward Island
+</td>
+<td style="text-align:right;">
+-0.8082244
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Saskatchewan
+</td>
+<td style="text-align:right;">
+-0.7695228
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ontario
+</td>
+<td style="text-align:right;">
+-0.7583329
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Manitoba
 </td>
 <td style="text-align:right;">
 -0.7392303
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Alberta
+</td>
+<td style="text-align:right;">
+-0.7023852
 </td>
 </tr>
 <tr>
@@ -2520,46 +2563,6 @@ Newfoundland and Labrador
 </td>
 <td style="text-align:right;">
 -0.0025743
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Nova Scotia
-</td>
-<td style="text-align:right;">
--0.9236636
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Ontario
-</td>
-<td style="text-align:right;">
--0.7583329
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Prince Edward Island
-</td>
-<td style="text-align:right;">
--0.8082244
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Quebec
-</td>
-<td style="text-align:right;">
--0.9447648
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Saskatchewan
-</td>
-<td style="text-align:right;">
--0.7695228
 </td>
 </tr>
 </tbody>
@@ -2594,6 +2597,7 @@ year in Ontario. We see that the major categories are <strong>property
 crime</strong> and <strong>weapon violations</strong>.</p>
 <p><img src="work_files/figure-html/unnamed-chunk-25-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <p><img src="work_files/figure-html/unnamed-chunk-26-1.png" width="1440" style="display: block; margin: auto 0 auto auto;" /></p>
+<p><img src="work_files/figure-html/unnamed-chunk-28-1.png" width="1920" /></p>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <div
@@ -4924,7 +4928,7 @@ limits the dataset. The strongest correlation is observed between
 Act</strong>. However, it’s important to note that this relationship may
 not be entirely reliable due to the limited data available (3
 observations), as illustrated in the plot below.</p>
-<p><img src="work_files/figure-html/unnamed-chunk-28-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="work_files/figure-html/unnamed-chunk-30-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>The second strongest correlation, with a coefficient of 0.98, is
 observed between <strong>total income and incidents of possession of
 other Controlled Drugs and Substances Act drugs</strong>. With
@@ -4935,7 +4939,7 @@ Despite the negative correlation between total income and total crime
 rate in Ontario, as found in previous analyses, a positive relationship
 exists between total income and incidents of possession of other
 Controlled Drugs and Substances Act drugs.</p>
-<p><img src="work_files/figure-html/unnamed-chunk-29-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="work_files/figure-html/unnamed-chunk-31-1.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="group-by-income-level" class="section level3">
 <h3>Group by Income Level</h3>
@@ -4958,18 +4962,20 @@ conceivable that while a relationship exists, it may be influenced by
 other factors related to the demographics of each province.
 Consequently, when considering all observations collectively, the
 relationship becomes less apparent.</p>
-<p><img src="work_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="work_files/figure-html/unnamed-chunk-33-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="fitting-statistical-models" class="section level3">
 <h3>Fitting Statistical Models</h3>
+<pre class="r"><code>joint_df &lt;- joint_df %&gt;% rename(avg_income = `Average income (excluding zeros)`)</code></pre>
+<pre class="r"><code>joint_df &lt;- joint_df %&gt;% rename(crime_rate = `Rate per 100,000 population`)</code></pre>
 <p>Since we’ve previously observed in plots such that the
 <strong>slope</strong> of the relationship between average total income
 and total crime rate is different across provinces, we need to fit a
 model with <strong>interaction terms</strong> such that the slopes can
 be different.</p>
 <pre class="r"><code>library(broom)
-model &lt;- lm(data = joint_df, `Rate per 100,000 population` ~ `Average income (excluding zeros)` * `GEO`)
-tidy_coeffs &lt;- tidy(model)
+lm_model &lt;- lm(data = joint_df, `crime_rate` ~ `avg_income` * `GEO`)
+tidy_coeffs &lt;- tidy(lm_model)
 table &lt;- tidy_coeffs %&gt;%
   kable(&quot;html&quot;) %&gt;%
   kable_styling(bootstrap_options = &quot;striped&quot;, full_width = TRUE)
@@ -5014,7 +5020,7 @@ p.value
 </tr>
 <tr>
 <td style="text-align:left;">
-<code>Average income (excluding zeros)</code>
+avg_income
 </td>
 <td style="text-align:right;">
 -0.0965352
@@ -5184,7 +5190,7 @@ GEOSaskatchewan
 </tr>
 <tr>
 <td style="text-align:left;">
-<code>Average income (excluding zeros)</code>:GEOBritish Columbia
+avg_income:GEOBritish Columbia
 </td>
 <td style="text-align:right;">
 -0.2946092
@@ -5201,7 +5207,7 @@ GEOSaskatchewan
 </tr>
 <tr>
 <td style="text-align:left;">
-<code>Average income (excluding zeros)</code>:GEOManitoba
+avg_income:GEOManitoba
 </td>
 <td style="text-align:right;">
 -0.1693983
@@ -5218,7 +5224,7 @@ GEOSaskatchewan
 </tr>
 <tr>
 <td style="text-align:left;">
-<code>Average income (excluding zeros)</code>:GEONew Brunswick
+avg_income:GEONew Brunswick
 </td>
 <td style="text-align:right;">
 -0.0316576
@@ -5235,8 +5241,7 @@ GEOSaskatchewan
 </tr>
 <tr>
 <td style="text-align:left;">
-<code>Average income (excluding zeros)</code>:GEONewfoundland and
-Labrador
+avg_income:GEONewfoundland and Labrador
 </td>
 <td style="text-align:right;">
 0.0963984
@@ -5253,7 +5258,7 @@ Labrador
 </tr>
 <tr>
 <td style="text-align:left;">
-<code>Average income (excluding zeros)</code>:GEONova Scotia
+avg_income:GEONova Scotia
 </td>
 <td style="text-align:right;">
 -0.2025528
@@ -5270,7 +5275,7 @@ Labrador
 </tr>
 <tr>
 <td style="text-align:left;">
-<code>Average income (excluding zeros)</code>:GEOOntario
+avg_income:GEOOntario
 </td>
 <td style="text-align:right;">
 -0.2319253
@@ -5287,7 +5292,7 @@ Labrador
 </tr>
 <tr>
 <td style="text-align:left;">
-<code>Average income (excluding zeros)</code>:GEOPrince Edward Island
+avg_income:GEOPrince Edward Island
 </td>
 <td style="text-align:right;">
 -0.1471245
@@ -5304,7 +5309,7 @@ Labrador
 </tr>
 <tr>
 <td style="text-align:left;">
-<code>Average income (excluding zeros)</code>:GEOQuebec
+avg_income:GEOQuebec
 </td>
 <td style="text-align:right;">
 -0.1635189
@@ -5321,7 +5326,7 @@ Labrador
 </tr>
 <tr>
 <td style="text-align:left;">
-<code>Average income (excluding zeros)</code>:GEOSaskatchewan
+avg_income:GEOSaskatchewan
 </td>
 <td style="text-align:right;">
 -0.0726509
@@ -5338,6 +5343,64 @@ Labrador
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>summary(lm_model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = crime_rate ~ avg_income * GEO, data = joint_df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1794.76  -513.35    32.88   557.20  1861.64 
+## 
+## Coefficients:
+##                                           Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)                              1.479e+04  1.438e+03  10.291  &lt; 2e-16
+## avg_income                              -9.654e-02  2.587e-02  -3.731 0.000243
+## GEOBritish Columbia                      1.387e+04  2.312e+03   5.999 8.10e-09
+## GEOManitoba                              7.946e+03  2.296e+03   3.461 0.000647
+## GEONew Brunswick                        -2.943e+03  2.104e+03  -1.399 0.163243
+## GEONewfoundland and Labrador            -8.092e+03  1.706e+03  -4.744 3.77e-06
+## GEONova Scotia                           5.231e+03  2.194e+03   2.384 0.017960
+## GEOOntario                               6.851e+03  3.312e+03   2.068 0.039765
+## GEOPrince Edward Island                  1.790e+03  2.029e+03   0.882 0.378672
+## GEOQuebec                                1.870e+03  2.383e+03   0.785 0.433442
+## GEOSaskatchewan                          7.458e+03  1.888e+03   3.951 0.000105
+## avg_income:GEOBritish Columbia          -2.946e-01  4.677e-02  -6.299 1.61e-09
+## avg_income:GEOManitoba                  -1.694e-01  4.771e-02  -3.550 0.000470
+## avg_income:GEONew Brunswick             -3.166e-02  4.581e-02  -0.691 0.490298
+## avg_income:GEONewfoundland and Labrador  9.640e-02  3.383e-02   2.850 0.004793
+## avg_income:GEONova Scotia               -2.026e-01  4.697e-02  -4.313 2.44e-05
+## avg_income:GEOOntario                   -2.319e-01  6.540e-02  -3.546 0.000478
+## avg_income:GEOPrince Edward Island      -1.471e-01  4.413e-02  -3.334 0.001004
+## avg_income:GEOQuebec                    -1.635e-01  5.061e-02  -3.231 0.001423
+## avg_income:GEOSaskatchewan              -7.265e-02  3.625e-02  -2.004 0.046259
+##                                            
+## (Intercept)                             ***
+## avg_income                              ***
+## GEOBritish Columbia                     ***
+## GEOManitoba                             ***
+## GEONew Brunswick                           
+## GEONewfoundland and Labrador            ***
+## GEONova Scotia                          *  
+## GEOOntario                              *  
+## GEOPrince Edward Island                    
+## GEOQuebec                                  
+## GEOSaskatchewan                         ***
+## avg_income:GEOBritish Columbia          ***
+## avg_income:GEOManitoba                  ***
+## avg_income:GEONew Brunswick                
+## avg_income:GEONewfoundland and Labrador ** 
+## avg_income:GEONova Scotia               ***
+## avg_income:GEOOntario                   ***
+## avg_income:GEOPrince Edward Island      ** 
+## avg_income:GEOQuebec                    ** 
+## avg_income:GEOSaskatchewan              *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 770.8 on 220 degrees of freedom
+## Multiple R-squared:  0.9381, Adjusted R-squared:  0.9328 
+## F-statistic: 175.6 on 19 and 220 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The linear regression model examines the relationship between
 <strong>Crime Rate per 100,000 population</strong> and <strong>Average
 income (excluding zeros)</strong> while considering the categorical
@@ -5356,6 +5419,108 @@ and crime rate in British Columbia. Overall, the model, with an adjusted
 suggesting that both income and province significantly influence the
 rate per 100,000 population, with nuanced variations across different
 regions.</p>
+<pre class="r"><code>set.seed(123)
+rf_model &lt;- randomForest(crime_rate ~ GEO + avg_income,
+                         data = joint_df,
+                         na.action = na.omit)
+
+varImpPlot(rf_model, main = &quot;Variale Importance Plot for Random Forest&quot;)</code></pre>
+<p><img src="work_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<pre class="r"><code>rf_model</code></pre>
+<pre><code>## 
+## Call:
+##  randomForest(formula = crime_rate ~ GEO + avg_income, data = joint_df,      na.action = na.omit) 
+##                Type of random forest: regression
+##                      Number of trees: 500
+## No. of variables tried at each split: 1
+## 
+##           Mean of squared residuals: 618320.4
+##                     % Var explained: 92.98</code></pre>
+<p>The model explains approximately 90.24% of the variance in the crime
+rate, which suggests that the predictor variables (REF_DATE, GEO, and
+avg_income) collectively have a strong relationship with the crime rate.
+The mean of squared residuals is relatively high (859479.8), indicating
+that there is still some unexplained variability in the data that the
+model is not capturing well. This suggests that there may be other
+factors influencing the crime rate that are not included in the model.
+Considering only one variable at each split might simplify the model and
+make it easier to interpret, but it might not capture complex
+interactions between variables.</p>
+<pre class="r"><code>gam_model &lt;- gam(crime_rate ~ s(REF_DATE) + GEO + avg_income, data = joint_df)
+
+summary(gam_model)</code></pre>
+<pre><code>## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## crime_rate ~ s(REF_DATE) + GEO + avg_income
+## 
+## Parametric coefficients:
+##                                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                   3.850e+03  1.210e+03   3.183 0.001666 ** 
+## GEOBritish Columbia           1.994e+03  2.704e+02   7.375 3.28e-12 ***
+## GEOManitoba                   2.538e+03  3.002e+02   8.454 3.83e-15 ***
+## GEONew Brunswick             -1.287e+03  3.734e+02  -3.448 0.000676 ***
+## GEONewfoundland and Labrador -1.373e+03  3.530e+02  -3.889 0.000133 ***
+## GEONova Scotia               -6.904e+02  3.425e+02  -2.016 0.045021 *  
+## GEOOntario                   -3.539e+03  2.246e+02 -15.757  &lt; 2e-16 ***
+## GEOPrince Edward Island      -1.014e+03  3.847e+02  -2.635 0.009007 ** 
+## GEOQuebec                    -2.933e+03  3.165e+02  -9.267  &lt; 2e-16 ***
+## GEOSaskatchewan               5.461e+03  2.484e+02  21.985  &lt; 2e-16 ***
+## avg_income                    1.016e-01  2.177e-02   4.668 5.27e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Approximate significance of smooth terms:
+##               edf Ref.df     F p-value    
+## s(REF_DATE) 8.121  8.792 30.53  &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## R-sq.(adj) =  0.952   Deviance explained = 95.5%
+## GCV = 4.6253e+05  Scale est. = 4.2568e+05  n = 240</code></pre>
+<pre class="r"><code>set.seed(123)
+train_control = caret::trainControl(method = &quot;cv&quot;, number = 10, search =&quot;grid&quot;)
+
+tune_grid&lt;-  expand.grid(max_depth = 3, #larger makes model more complex and potentially overfit
+                        nrounds = 300, # number of trees
+                        # default values below
+                        eta = 0.1, # learning rate (equivalent to shrinkage)
+                        gamma = 0, #Minimum loss reduction required to make a further partition on a leaf node of the tree. The larger gamma is, the more conservative the algorithm will be.
+                        subsample = 1,
+                        min_child_weight = 1,
+                        colsample_bytree = 0.6 #specify the fraction of columns to be subsampled
+                        )
+
+xgb_model&lt;-caret::train(
+  crime_rate ~ REF_DATE + GEO + avg_income,
+  data = joint_df,
+  method = &#39;xgbTree&#39;,
+  trControl = train_control,
+  tuneGrid = tune_grid,
+  na.action = na.omit,
+  verbosity=0
+)</code></pre>
+<pre class="r"><code>print(xgb_model)</code></pre>
+<pre><code>## eXtreme Gradient Boosting 
+## 
+## 240 samples
+##   3 predictor
+## 
+## No pre-processing
+## Resampling: Cross-Validated (10 fold) 
+## Summary of sample sizes: 216, 216, 216, 216, 216, 216, ... 
+## Resampling results:
+## 
+##   RMSE     Rsquared   MAE     
+##   469.094  0.9773425  371.3526
+## 
+## Tuning parameter &#39;nrounds&#39; was held constant at a value of 300
+## Tuning
+##  held constant at a value of 1
+## Tuning parameter &#39;subsample&#39; was held
+##  constant at a value of 1</code></pre>
 </div>
 </div>
 <div id="summary" class="section level2">

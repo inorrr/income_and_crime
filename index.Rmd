@@ -72,11 +72,15 @@ This project is created by Yinuo Zhao as part of the course JSC370H1 offered by 
 
 # References
 
-The census data set: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110023901
+1. Statistics Canada. (Year). Income of individuals by age group, sex and income source, Canada, provinces and selected census metropolitan areas. Statistics Canada. https://doi.org/10.25318/1110023901-eng
 
-The crime data set: https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3510017701
+2. Statistics Canada. (Year). Incident-based crime statistics, by detailed violations, Canada, provinces, territories, Census Metropolitan Areas and Canadian Forces Military Police. Statistics Canada. https://doi.org/10.25318/3510017701-eng
 
-https://artsci.calendar.utoronto.ca/course/jsc370h1
+3. Henderson, M. T., Wolfers, J., & Zitzewitz, E. (2010). Predicting crime. Ariz. L. Rev., 52, 15.
+
+4. Hooghe, M., Vanhoutte, B., Hardyns, W., & Bircan, T. (2010, December). Unemployment, Inequality, Poverty and Crime: Spatial Distribution Patterns of Criminal Acts in Belgium, 2001–06. The British Journal of Criminology, 51(1), 1-20. https://doi.org/10.1093/bjc/azq067
+
+5. Perry, W. L., McInnis, B., Price, C. C., Smith, S., & Hollywood, J. S. (2013). Predictive Policing: Forecasting Crime for Law Enforcement. RAND Corporation.
 
 # About JSC370H1
 

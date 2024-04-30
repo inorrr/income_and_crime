@@ -109,6 +109,8 @@ plot4 <- ggplot(filtered_data, aes(x = REF_DATE, y = `Rate per 100,000 populatio
 
 # Crime Rates By Province {.tabset}
 
+The line plots shows the crime rates by provinces for each year.
+
 ## Total Crime
 
 ```{r plot_1, echo=FALSE}
@@ -134,6 +136,8 @@ ggplotly(plot4, width = 800)
 ```
 
 # Average Income by Province {.tabset}
+
+The line plots shows the average income of provinces each year, this can help with identifying the trend of income. 
 
 ```{r, echo = FALSE, fig.align='center', fig.width=10, fig.height=5}
 filtered_data = census_df %>% filter(`Income source`=="Total income")
@@ -194,32 +198,34 @@ plot4 <- ggplot(filtered_data, aes(x = REF_DATE, y = `Average income (excluding 
 
 ## Total Income
 ```{r echo=FALSE}
-ggplotly(plot3, width = 800)
+ggplotly(plot1, width = 800)
 ```
 
 ## Employment Income
 ```{r echo=FALSE}
-ggplotly(plot1, width = 800)
+ggplotly(plot2, width = 800)
 ```
 
 ## Investment Income
 ```{r echo=FALSE}
-ggplotly(plot2, width = 800)
+ggplotly(plot3, width = 800)
 ```
 
 ## Market Income
 ```{r echo=FALSE}
-ggplotly(plot3, width = 800)
+ggplotly(plot4, width = 800)
 ```
 
 # Trend in Average Total Income
+
+The plots shows the average total income of all provinces in each year. Thus we can identify overall trends of income by year.
 
 ```{r, echo=FALSE, fig.align='center', fig.width=10, fig.height=5}
 filtered_data = census_df %>% filter(`Income source`=="Total income")
 plot<-ggplot(filtered_data, mapping = aes(x = as.factor(REF_DATE), y = `Average income (excluding zeros)`)) +
   geom_boxplot() +
   geom_jitter(alpha = 0.8, color = "pink") + 
-  labs(x = "Year", y = "Total income", title = "Average Total Income (excluding zeros) by Province") +
+  labs(x = "Year", y = "Total income", title = "Average Total Income (excluding zeros)") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   theme(plot.title = element_text(face = "bold")) +
   theme(plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm")) + 
@@ -231,6 +237,9 @@ ggplotly(plot, width = 800)
 
 
 # Crime Rate vs Income{.tabset}
+
+The scatter plot shows the relationshio between crime rate and income. While the first tab shows total crime(all types) and total income, the rest demonstrates the relationship between a specific crime type and income type. 
+
 
 ```{r, echo = FALSE, warning = FALSE, fig.align='center', fig.width=10, fig.height=5}
 filtered_census <- census_df %>% filter(`Income source` == "Total income") 
@@ -313,25 +322,28 @@ plot4 <- ggplot(data = joint_df, aes(x = `Average income (excluding zeros)`, y =
 
 ## Total Income and Total Crime
 ```{r echo=FALSE, }
-ggplotly(plot3, width = 800)
+ggplotly(plot1, width = 800)
 ```
 
 ## Employment Income and Robbery
 ```{r echo=FALSE}
-ggplotly(plot1, width = 800)
+ggplotly(plot2, width = 800)
 ```
 
 ## Market Income and Property Crime
 ```{r echo=FALSE}
-ggplotly(plot2, width = 800)
+ggplotly(plot3, width = 800)
 ```
 
 ## Employment Income and Prostitution
 ```{r echo=FALSE}
-ggplotly(plot3, width = 800)
+ggplotly(plot4, width = 800)
 ```
 
 # Income Levels
+
+I created 4 levels for average total income using the quarantines, from negative infinity to the first quantile is **"Low"**, from first quantile to mean is **"Med_Low"**, from mean to 3rd quantile is **"Med_High"**, from 3rd quantile above is **"High"**. The box plot shows the average total crime rate by income level.
+
 ```{r, echo = FALSE}
 filter_census <- census_df %>% filter(`Income source` == "Total income")
 # summary(filter_census$`Average income (excluding zeros)`)
