@@ -366,4 +366,33 @@ plot<-ggplot(joint_df, aes(x = as.factor(income_level), y = `Rate per 100,000 po
 ggplotly(plot, width = 800)
 ```
 
+# Correlations
+
+The heat map displays the absolute value of the correlation between each type of crime and income **in Ontario**. Move your cursor on the plot to see which correlation does a box represent.
+
+```{r,echo = FALSE, warning=FALSE}
+filtered_census <- census_df %>% filter(GEO == "Ontario")
+filtered_crime <- crime_df %>%filter(GEO == "Ontario")
+
+joint_df <- inner_join(filtered_crime, filtered_census, by = c("REF_DATE", "GEO"))
+
+summary_stats <- joint_df %>% filter(`Income source` != "COVID-19 benefits") %>% 
+  group_by(`Income source`, `Violations`) %>% 
+  summarise(Correlation = cor(`Aggregate income`, `Actual incidents`), .groups = 'drop')
+```
+
+```{r,echo = FALSE, fig.width=15, fig.height=27}
+plt <- ggplot(data = summary_stats, aes(x = `Income source`, y = `Violations`, fill = abs(Correlation))) +
+  geom_tile() +
+  scale_fill_gradient2(midpoint = 0.5, low = "blue", mid = "white", high = "red") +
+  labs(title = "Correlation between Income Source and Violations") +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 10)) +
+  scale_y_discrete(labels = function(y) str_wrap(y, width = 20)) +
+  theme(axis.text = element_blank())  # Remove both x and y axis text
+
+```
+
+```{r echo=FALSE}
+ggplotly(plt)
+```
 
