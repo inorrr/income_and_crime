@@ -1,5 +1,5 @@
 ---
-title: "<center>Midterm Project</center>"
+title: "Investigating the Socioeconomic Dynamics of Crime: Exploring the Relationship Between Income and Crime Rates in Canada"
 author: "Yinuo Zhao"
 date: "Mar 2, 2024"
 output:
@@ -710,7 +710,7 @@ table <- tidy_coeffs %>%
   kable_styling(bootstrap_options = "striped", full_width = TRUE)
 table
 ```
-```{r}
+```{r echo = FALSE}
 summary(lm_model)
 ```
 
@@ -719,7 +719,7 @@ The linear regression model examines the relationship between **Crime Rate per 1
 
 
 
-```{r}
+```{r echo = FALSE}
 set.seed(123)
 rf_model <- randomForest(crime_rate ~ GEO + avg_income,
                          data = joint_df,
@@ -727,19 +727,19 @@ rf_model <- randomForest(crime_rate ~ GEO + avg_income,
 
 varImpPlot(rf_model, main = "Variale Importance Plot for Random Forest")
 ```
-```{r}
+```{r echo = FALSE}
 rf_model
 ```
 The model explains approximately 90.24% of the variance in the crime rate, which suggests that the predictor variables (REF_DATE, GEO, and avg_income) collectively have a strong relationship with the crime rate.
 The mean of squared residuals is relatively high (859479.8), indicating that there is still some unexplained variability in the data that the model is not capturing well. This suggests that there may be other factors influencing the crime rate that are not included in the model.
 Considering only one variable at each split might simplify the model and make it easier to interpret, but it might not capture complex interactions between variables.
 
-```{r}
+```{r echo = FALSE}
 gam_model <- gam(crime_rate ~ s(REF_DATE) + GEO + avg_income, data = joint_df)
 
 summary(gam_model)
 ```
-```{r}
+```{r echo = FALSE}
 set.seed(123)
 train_control = caret::trainControl(method = "cv", number = 10, search ="grid")
 
@@ -765,7 +765,7 @@ xgb_model<-caret::train(
 ```
 
 
-```{r}
+```{r echo = FALSE}
 print(xgb_model)
 ```
 

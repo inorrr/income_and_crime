@@ -12,7 +12,7 @@
 <meta name="author" content="Yinuo Zhao" />
 
 
-<title> Midterm Project </title>
+<title>Investigating the Socioeconomic Dynamics of Crime: Exploring the Relationship Between Income and Crime Rates in Canada</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -282,9 +282,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore"><center><br />
-Midterm Project<br />
-</center></h1>
+<h1 class="title toc-ignore">Investigating the Socioeconomic Dynamics of
+Crime: Exploring the Relationship Between Income and Crime Rates in
+Canada</h1>
 <h4 class="author">Yinuo Zhao</h4>
 <h4 class="date">Mar 2, 2024</h4>
 
@@ -613,7 +613,7 @@ aligns with the findings and inferences drawn from the preceding
 plots.</p>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped table" style="margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table" style="color: black; margin-left: auto; margin-right: auto; color: black; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;" colspan="11">
@@ -1543,7 +1543,7 @@ Over time, there is a discernible increase in income, as evidenced by
 the progressive lightening of colors.</p>
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped table" style="margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table" style="color: black; margin-left: auto; margin-right: auto; color: black; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;" colspan="11">
@@ -2466,7 +2466,7 @@ possibly the exception of Newfoundland and Labrador where the
 relationship appears to be less pronounced, indicated by a line that is
 nearly horizontal. To draw a confident conclusion, it is imperative to
 examine the actual correlation value between these variables.</p>
-<table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table" style="color: black; width: auto !important; margin-left: auto; margin-right: auto; color: black; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; position: sticky; top:0; background-color: #FFFFFF;" colspan="2">
@@ -2602,7 +2602,7 @@ crime</strong> and <strong>weapon violations</strong>.</p>
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
 <div
 style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped table" style="margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table" style="color: black; margin-left: auto; margin-right: auto; color: black; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;position: sticky; top:0; background-color: #FFFFFF;" colspan="16">
@@ -4980,7 +4980,7 @@ table &lt;- tidy_coeffs %&gt;%
   kable(&quot;html&quot;) %&gt;%
   kable_styling(bootstrap_options = &quot;striped&quot;, full_width = TRUE)
 table</code></pre>
-<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<table class="table table-striped" style="color: black; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -5343,7 +5343,6 @@ avg_income:GEOSaskatchewan
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>summary(lm_model)</code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = crime_rate ~ avg_income * GEO, data = joint_df)
@@ -5419,14 +5418,7 @@ and crime rate in British Columbia. Overall, the model, with an adjusted
 suggesting that both income and province significantly influence the
 rate per 100,000 population, with nuanced variations across different
 regions.</p>
-<pre class="r"><code>set.seed(123)
-rf_model &lt;- randomForest(crime_rate ~ GEO + avg_income,
-                         data = joint_df,
-                         na.action = na.omit)
-
-varImpPlot(rf_model, main = &quot;Variale Importance Plot for Random Forest&quot;)</code></pre>
 <p><img src="work_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
-<pre class="r"><code>rf_model</code></pre>
 <pre><code>## 
 ## Call:
 ##  randomForest(formula = crime_rate ~ GEO + avg_income, data = joint_df,      na.action = na.omit) 
@@ -5446,9 +5438,6 @@ factors influencing the crime rate that are not included in the model.
 Considering only one variable at each split might simplify the model and
 make it easier to interpret, but it might not capture complex
 interactions between variables.</p>
-<pre class="r"><code>gam_model &lt;- gam(crime_rate ~ s(REF_DATE) + GEO + avg_income, data = joint_df)
-
-summary(gam_model)</code></pre>
 <pre><code>## 
 ## Family: gaussian 
 ## Link function: identity 
@@ -5480,29 +5469,6 @@ summary(gam_model)</code></pre>
 ## 
 ## R-sq.(adj) =  0.952   Deviance explained = 95.5%
 ## GCV = 4.6253e+05  Scale est. = 4.2568e+05  n = 240</code></pre>
-<pre class="r"><code>set.seed(123)
-train_control = caret::trainControl(method = &quot;cv&quot;, number = 10, search =&quot;grid&quot;)
-
-tune_grid&lt;-  expand.grid(max_depth = 3, #larger makes model more complex and potentially overfit
-                        nrounds = 300, # number of trees
-                        # default values below
-                        eta = 0.1, # learning rate (equivalent to shrinkage)
-                        gamma = 0, #Minimum loss reduction required to make a further partition on a leaf node of the tree. The larger gamma is, the more conservative the algorithm will be.
-                        subsample = 1,
-                        min_child_weight = 1,
-                        colsample_bytree = 0.6 #specify the fraction of columns to be subsampled
-                        )
-
-xgb_model&lt;-caret::train(
-  crime_rate ~ REF_DATE + GEO + avg_income,
-  data = joint_df,
-  method = &#39;xgbTree&#39;,
-  trControl = train_control,
-  tuneGrid = tune_grid,
-  na.action = na.omit,
-  verbosity=0
-)</code></pre>
-<pre class="r"><code>print(xgb_model)</code></pre>
 <pre><code>## eXtreme Gradient Boosting 
 ## 
 ## 240 samples

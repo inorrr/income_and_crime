@@ -4,7 +4,7 @@ output:
     html_document
 ---
 
-Please download the full report at here: https://github.com/inorrr/JSC370_project
+Please download the full report at here: https://github.com/inorrr/income_and_crime
 
 Or by clicking the button below:
 
